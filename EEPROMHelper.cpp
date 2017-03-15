@@ -1,13 +1,10 @@
-// 
-// 
-// 
+//
+// Use save_Info to save flag in EEPROM, save_WifiInfo and save_BlynkInfo do not save flag
+// tackelua@gmail.com 2017-03-15
+//  
 
 #include <EEPROM.h>
 #include "EEPROMHelper.h"
-
-#ifdef DEBUG
-#define DEBUG_EEPROM DEBUG
-#endif // DEBUG
 
 #define EXIST_STRING "true"
 
@@ -26,14 +23,9 @@ void EEPROMHelperClass::init()
 }
 
 void EEPROMHelperClass::writeString(int address, String data) {
-#ifdef DEBUG_EEPROM
-	DEBUG_EEPROM.print("EEPROM WriteString at " + String(address));
-	DEBUG_EEPROM.println(" - DATA = " + data);
-	DEBUG_EEPROM.flush();
-#endif // DEBUG_EEPROM
 	for (int i = 0; i < data.length(); i++) {
 		EEPROM.write(address + i, data.charAt(i));
-		//delay(1);
+		delay(1);
 	}
 	EEPROM.write(address + data.length(), 0);
 	delay(10);
@@ -44,28 +36,33 @@ String EEPROMHelperClass::readString(int address) {
 	char data_array[50];
 	EEPROM.get(address, data_array);
 	String str_ret = data_array;
-#ifdef DEBUG_EEPROM
-	DEBUG_EEPROM.print("EEPROM ReadString at " + String(address));
-	DEBUG_EEPROM.println(" - DATA = " + str_ret);
-	DEBUG_EEPROM.flush();
-#endif // DEBUG_EEPROM
 	return str_ret;
 }
 
-void EEPROMHelperClass::save_BlynkInfo(String auth, String domain, uint16_t port) {
-#ifdef DEBUG_EEPROM
-	DEBUG_EEPROM.println("Save Blynk to EEPROM: " + auth + " | " + domain + " | " + String(port));
-#endif // DEBUG_EEPROM
+void EEPROMHelperClass::save_WifiInfo(String ssid, String password) {
+	//writeString(EEPROM_ADDR_EXIST, EXIST_STRING);
+	writeString(EEPROM_ADDR_WIFI_SSID, ssid);
+	writeString(EEPROM_ADDR_WIFI_PASSWORD, password);
+}
+bool EEPROMHelperClass::get_WifiInfo(String& ssid, String& password) {
+	String haveInfo = readString(EEPROM_ADDR_EXIST);
+	if (haveInfo == EXIST_STRING) {
+		ssid = readString(EEPROM_ADDR_WIFI_SSID);
+		password = readString(EEPROM_ADDR_WIFI_PASSWORD);
+		return true;
+	}
+	else return false;
+}
 
-	writeString(EEPROM_ADDR_EXIST, EXIST_STRING);
+void EEPROMHelperClass::save_BlynkInfo(String auth, String domain, uint16_t port) {
+	//writeString(EEPROM_ADDR_EXIST, EXIST_STRING);
 	writeString(EEPROM_ADDR_BLYNK_TOKEN, auth);
 	writeString(EEPROM_ADDR_BLYNK_DOMAIN, domain);
 	writeString(EEPROM_ADDR_BLYNK_PORT, (String)port);
 }
-
 bool EEPROMHelperClass::get_BlynkInfo(String& auth, String& domain, uint16_t& port) {
-	String haveToken = readString(EEPROM_ADDR_EXIST);
-	if (haveToken == EXIST_STRING) {
+	String haveInfo = readString(EEPROM_ADDR_EXIST);
+	if (haveInfo == EXIST_STRING) {
 		auth = readString(EEPROM_ADDR_BLYNK_TOKEN);
 		domain = readString(EEPROM_ADDR_BLYNK_DOMAIN);
 		port = readString(EEPROM_ADDR_BLYNK_PORT).toInt();
@@ -74,21 +71,22 @@ bool EEPROMHelperClass::get_BlynkInfo(String& auth, String& domain, uint16_t& po
 	else return false;
 }
 
-void EEPROMHelperClass::save_WifiInfo(String ssid, String password) {
-#ifdef DEBUG_EEPROM
-	DEBUG_EEPROM.println("Save WiFi to EEPROM: " + ssid + " | " + password);
-#endif // DEBUG_EEPROM
-
+void EEPROMHelperClass::save_Info(String ssid, String password, String auth, String domain, uint16_t port) {
 	writeString(EEPROM_ADDR_EXIST, EXIST_STRING);
 	writeString(EEPROM_ADDR_WIFI_SSID, ssid);
 	writeString(EEPROM_ADDR_WIFI_PASSWORD, password);
+	writeString(EEPROM_ADDR_BLYNK_TOKEN, auth);
+	writeString(EEPROM_ADDR_BLYNK_DOMAIN, domain);
+	writeString(EEPROM_ADDR_BLYNK_PORT, (String)port);
 }
-
-bool EEPROMHelperClass::get_WifiInfo(String& ssid, String& password) {
-	String haveToken = readString(EEPROM_ADDR_EXIST);
-	if (haveToken == EXIST_STRING) {
+bool EEPROMHelperClass::get_Info(String& ssid, String& password, String& auth, String& domain, uint16_t& port) {
+	String haveInfo = readString(EEPROM_ADDR_EXIST);
+	if (haveInfo == EXIST_STRING) {
 		ssid = readString(EEPROM_ADDR_WIFI_SSID);
 		password = readString(EEPROM_ADDR_WIFI_PASSWORD);
+		auth = readString(EEPROM_ADDR_BLYNK_TOKEN);
+		domain = readString(EEPROM_ADDR_BLYNK_DOMAIN);
+		port = readString(EEPROM_ADDR_BLYNK_PORT).toInt();
 		return true;
 	}
 	else return false;

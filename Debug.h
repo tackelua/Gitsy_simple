@@ -12,7 +12,7 @@
 #define RUN_MAIN
 #define DEBUG Serial
 
-//#define TEST_EEPROM
+#define TEST_EEPROM
 
 #if defined(TEST_EEPROM)
 #undef RUN_MAIN

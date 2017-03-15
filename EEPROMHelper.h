@@ -18,10 +18,16 @@ protected:
 	String readString(int address);
 public:
 	void init();
-	void save_BlynkInfo(String auth, String domain, uint16_t port);
-	bool get_BlynkInfo(String& auth, String& domain, uint16_t& port);
+
 	void save_WifiInfo(String ssid, String password);
 	bool get_WifiInfo(String& ssid, String& password);
+
+	void save_BlynkInfo(String auth, String domain, uint16_t port);
+	bool get_BlynkInfo(String& auth, String& domain, uint16_t& port);
+		
+	void save_Info(String ssid, String password, String auth, String domain, uint16_t port);
+	bool get_Info(String& ssid, String& password, String& auth, String& domain, uint16_t& port);
+	
 	void eraser();
 };
 
