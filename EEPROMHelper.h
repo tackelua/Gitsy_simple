@@ -8,8 +8,12 @@
 #else
 #include "WProgram.h"
 #endif
-
+#include "DebugGitsy.h"
 #include <EEPROM.h>
+
+#ifdef DEBUG
+#define DEBUG_EEPROM DEBUG
+#endif // DEBUG
 
 class EEPROMHelperClass
 {
@@ -19,10 +23,10 @@ protected:
 public:
 	void init();
 
-	void save_WifiInfo(String ssid, String password);
+	void update_WifiInfo(String ssid, String password);
 	bool get_WifiInfo(String& ssid, String& password);
 
-	void save_BlynkInfo(String auth, String domain, uint16_t port);
+	void update_BlynkInfo(String auth, String domain, uint16_t port);
 	bool get_BlynkInfo(String& auth, String& domain, uint16_t& port);
 		
 	void save_Info(String ssid, String password, String auth, String domain, uint16_t port);

@@ -22,6 +22,9 @@
     <None Include="TEST_EEPROMHelper.ino">
       <Filter>TEST</Filter>
     </None>
+    <None Include="TEST_FIREBASEHelper.ino">
+      <Filter>TEST</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.Gitsy_simple.vsarduino.h">
@@ -30,15 +33,21 @@
     <ClInclude Include="EEPROMHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Debug.h">
+    <ClInclude Include="Declarations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Declarations.h">
+    <ClInclude Include="FIREBASEHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugGitsy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EEPROMHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FIREBASEHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

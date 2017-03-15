@@ -1,5 +1,5 @@
 //
-// Use save_Info to save flag in EEPROM, save_WifiInfo and save_BlynkInfo do not save flag
+// Use save_Info to save flag in EEPROM, update_WifiInfo and update_BlynkInfo do not save flag
 // tackelua@gmail.com 2017-03-15
 //  
 
@@ -39,7 +39,7 @@ String EEPROMHelperClass::readString(int address) {
 	return str_ret;
 }
 
-void EEPROMHelperClass::save_WifiInfo(String ssid, String password) {
+void EEPROMHelperClass::update_WifiInfo(String ssid, String password) {
 	//writeString(EEPROM_ADDR_EXIST, EXIST_STRING);
 	writeString(EEPROM_ADDR_WIFI_SSID, ssid);
 	writeString(EEPROM_ADDR_WIFI_PASSWORD, password);
@@ -54,7 +54,7 @@ bool EEPROMHelperClass::get_WifiInfo(String& ssid, String& password) {
 	else return false;
 }
 
-void EEPROMHelperClass::save_BlynkInfo(String auth, String domain, uint16_t port) {
+void EEPROMHelperClass::update_BlynkInfo(String auth, String domain, uint16_t port) {
 	//writeString(EEPROM_ADDR_EXIST, EXIST_STRING);
 	writeString(EEPROM_ADDR_BLYNK_TOKEN, auth);
 	writeString(EEPROM_ADDR_BLYNK_DOMAIN, domain);

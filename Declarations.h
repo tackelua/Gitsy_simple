@@ -9,7 +9,7 @@
 	#include "WProgram.h"
 #endif
 
-//const char _emptyArray[] PROGMEM = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
+
 
 #endif
 

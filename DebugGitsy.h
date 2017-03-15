@@ -12,9 +12,11 @@
 #define RUN_MAIN
 #define DEBUG Serial
 
-#define TEST_EEPROM
+//#define TEST_EEPROM
+#define TEST_FIREBASE
+//#define TEST_BLYNK
 
-#if defined(TEST_EEPROM)
+#if defined(TEST_EEPROM) || defined(TEST_FIREBASE) || defined(TEST_BLYNK)
 #undef RUN_MAIN
 #endif
 

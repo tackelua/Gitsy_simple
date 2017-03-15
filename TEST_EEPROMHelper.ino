@@ -27,7 +27,7 @@ void setup() {
 	DEBUG.println("get Info:" + a + "|" + b + "|" + c + "|" + d + "|" + String(e));
 
 	DEBUG.println("Saving Blynk Info");
-	EEPROMHelper.save_BlynkInfo(tAuth, tDomain, tPort);
+	EEPROMHelper.update_BlynkInfo(tAuth, tDomain, tPort);
 	if (EEPROMHelper.get_BlynkInfo(blAuth, blDomain, blPort))
 	{
 		DEBUG_EEPROM.println("get_BlynkInfo:" + blAuth + "|" + blDomain + "|" + String(blPort));
@@ -36,7 +36,7 @@ void setup() {
 	}
 
 	DEBUG.println("Saving Wifi Info");
-	EEPROMHelper.save_WifiInfo(tSSID, tPW);
+	EEPROMHelper.update_WifiInfo(tSSID, tPW);
 	if (EEPROMHelper.get_WifiInfo(wfSSID, wfPW))
 	{
 		DEBUG_EEPROM.println("get_WifiInfo:" + wfSSID + "|" + wfPW);
