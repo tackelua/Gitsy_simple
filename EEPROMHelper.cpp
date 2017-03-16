@@ -61,17 +61,43 @@ void EEPROMHelperClass::update_BlynkInfo(String auth, String domain, uint16_t po
 	writeString(EEPROM_ADDR_BLYNK_PORT, (String)port);
 }
 bool EEPROMHelperClass::get_BlynkInfo(String& auth, String& domain, uint16_t& port) {
+#ifdef DEBUG_EEPROM
+	DEBUG_EEPROM.println("EEPROMHelper.get_BlynkInfo()");
+#endif // DEBUG_EEPROM
+
 	String haveInfo = readString(EEPROM_ADDR_EXIST);
 	if (haveInfo == EXIST_STRING) {
 		auth = readString(EEPROM_ADDR_BLYNK_TOKEN);
 		domain = readString(EEPROM_ADDR_BLYNK_DOMAIN);
 		port = readString(EEPROM_ADDR_BLYNK_PORT).toInt();
+#ifdef DEBUG_EEPROM
+		DEBUG_EEPROM.println(auth);
+		DEBUG_EEPROM.println(domain);
+		DEBUG_EEPROM.println(port);
+#endif // DEBUG_EEPROM
+
 		return true;
 	}
-	else return false;
+	else
+	{
+#ifdef DEBUG_EEPROM
+		DEBUG_EEPROM.println("Failed");
+#endif // DEBUG_EEPROM
+		return false;
+	}
 }
 
 void EEPROMHelperClass::save_Info(String ssid, String password, String auth, String domain, uint16_t port) {
+#ifdef DEBUG_EEPROM
+	DEBUG_EEPROM.println("EEPROMHelper.save_Info()");
+	DEBUG_EEPROM.println(EXIST_STRING);
+	DEBUG_EEPROM.println(ssid);
+	DEBUG_EEPROM.println(password);
+	DEBUG_EEPROM.println(auth);
+	DEBUG_EEPROM.println(domain);
+	DEBUG_EEPROM.println(port);
+#endif // DEBUG_EEPROM
+
 	writeString(EEPROM_ADDR_EXIST, EXIST_STRING);
 	writeString(EEPROM_ADDR_WIFI_SSID, ssid);
 	writeString(EEPROM_ADDR_WIFI_PASSWORD, password);

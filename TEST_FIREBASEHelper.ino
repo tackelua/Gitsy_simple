@@ -35,15 +35,6 @@ void loop()
 
 }
 
-uint32_t check_FreeRAM(String free_ram_at) {
-	uint32_t freeRam = ESP.getFreeHeap();
-#ifdef DEBUG
-	DEBUG.println("Free RAM " + free_ram_at + ": " + (String)freeRam);
-	DEBUG.flush();
-#endif // DEBUG
-	return freeRam;
-}
-
 void testFirebase(String path) {
 	ulong t = millis();
 	FirebaseObject a = Firebase.get(path);
@@ -94,3 +85,13 @@ void testFirebase(String path) {
 
 }
 #endif // RUN_MAIN
+
+
+uint32_t check_FreeRAM(String free_ram_at) {
+	uint32_t freeRam = ESP.getFreeHeap();
+#ifdef DEBUG
+	DEBUG.println("Free RAM " + free_ram_at + ": " + (String)freeRam);
+	DEBUG.flush();
+#endif // DEBUG
+	return freeRam;
+}

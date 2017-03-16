@@ -9,6 +9,7 @@
 	#include "WProgram.h"
 #endif
 
+#include "DebugGitsy.h"
 
 
 #endif

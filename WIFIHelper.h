@@ -8,6 +8,7 @@
 #else
 	#include "WProgram.h"
 #endif
+#include "DebugGitsy.h"
 #include <ESP8266WiFi.h>          //https://github.com/esp8266/Arduino
 
 //needed for library
@@ -19,13 +20,13 @@ class WIFIHelperClass
 {
  protected:
 
-
  public:
-	InfoFromCaptiveWiFiClass Info;
 	void captiveWiFi();
+	bool begin();
+
 };
 
-extern WIFIHelperClass WIFIHelper;
+extern WIFIHelperClass WiFiHelper;
 
 #endif
 

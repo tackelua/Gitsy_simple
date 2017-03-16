@@ -87,6 +87,9 @@
     <None Include="TEST_FIREBASEHelper.ino">
       <FileType>CppCode</FileType>
     </None>
+    <None Include="TEST_WiFiHelper.ino">
+      <FileType>CppCode</FileType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BLYNKHelper.h" />

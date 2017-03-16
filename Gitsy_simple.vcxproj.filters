@@ -29,6 +29,9 @@
     <None Include="TEST_BLYNKHelper.ino">
       <Filter>TEST</Filter>
     </None>
+    <None Include="TEST_WiFiHelper.ino">
+      <Filter>TEST</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.Gitsy_simple.vsarduino.h">
