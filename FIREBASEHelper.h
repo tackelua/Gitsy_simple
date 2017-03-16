@@ -36,14 +36,15 @@ class FIREBASEHelperClass
 {
  protected:
 	 String path;
-
+	 bool lastCommand_failed(String at = "");
+	 bool lastCommand_success(String at = "");
  public:
 	void init(String host, String auth);
 	bool update_WifiInfo(String ssid, String password);
-	bool get_WifiInfo(String& ssid, String& password);
+	bool get_WifiInfo(String& ssid, String& password, bool& isUpToDate);
 
 	bool update_BlynkInfo(String auth, String domain, uint16_t port);
-	bool get_BlynkInfo(String& auth, String& domain, uint16_t& port);
+	bool get_BlynkInfo(String& auth, String& domain, uint16_t& port, bool& isUpToDate);
 
 	bool set_Info(String ssid, String password, String auth, String domain, uint16_t port);
 	bool get_Info(String& ssid, String& password, String& auth, String& domain, uint16_t& port);

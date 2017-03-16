@@ -18,7 +18,18 @@ void loop()
 {
 	check_FreeRAM("before update_WifiInfo");
 
-	FirebaseHelper.set_Info("ssid test updateWifiInfo", "ssid test updateWifiInfo", "blynkauth", "blynkdomain", 123424);
+	static int i = 0;
+	FirebaseHelper.update_WifiInfo("new ssid" + String(i++), "new pw" + String(i));
+	delay(1000);
+	String ns, np;
+	bool ni;
+	FirebaseHelper.get_WifiInfo(ns, np, ni);
+	Serial.println(ns);
+	Serial.println(np);
+	Serial.println(ni);
+
+	FirebaseHelper.update_BlynkInfo(ns, np, ni);
+
 	delay(5000);
 
 }
