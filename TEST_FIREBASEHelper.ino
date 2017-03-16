@@ -29,7 +29,8 @@ void loop()
 	Serial.println(ni);
 
 	FirebaseHelper.update_BlynkInfo(ns, np, ni);
-
+	delay(1000);
+	FirebaseHelper.remove();
 	delay(5000);
 
 }

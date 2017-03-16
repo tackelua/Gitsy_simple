@@ -16,8 +16,9 @@ bool FIREBASEHelperClass::lastCommand_failed(String at) {
 #ifdef DEBUG_FIREBASE
 		if (at.length() > 0) {
 			DEBUG_FIREBASE.print(at);
+			DEBUG_FIREBASE.print("\t");
 		}
-		DEBUG_FIREBASE.println("\tFailed");
+		DEBUG_FIREBASE.println("Failed");
 		DEBUG_FIREBASE.println(Firebase.error());
 #endif // DEBUG_FIREBASE
 	}
@@ -29,8 +30,9 @@ bool FIREBASEHelperClass::lastCommand_success(String at) {
 #ifdef DEBUG_FIREBASE
 		if (at.length() > 0) {
 			DEBUG_FIREBASE.print(at);
+			DEBUG_FIREBASE.print("\t");
 		}
-		DEBUG_FIREBASE.println("\tSuccess");
+		DEBUG_FIREBASE.println("Success");
 #endif // DEBUG_FIREBASE
 	}
 	return _success;
@@ -198,6 +200,19 @@ bool FIREBASEHelperClass::get_BlynkInfo(String& auth, String& domain, uint16_t& 
 	}
 }
 
+bool FIREBASEHelperClass::remove() {
+#ifdef DEBUG_FIREBASE
+	DEBUG_FIREBASE.println("\r\nFirebaseHelper.remove()");
+#endif // DEBUG_FIREBASE
+
+	Firebase.remove(path);
+	if (lastCommand_success()) {
+		return true;
+	}
+	if (lastCommand_failed()) {
+		return false;
+	}
+}
 
 FIREBASEHelperClass FirebaseHelper;
 
