@@ -14,7 +14,8 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="TEST">
-      <UniqueIdentifier>{b81c1031-a170-45c0-931c-efa5183ba071}</UniqueIdentifier>
+      <UniqueIdentifier>{17eae288-8083-45a3-8f5e-3b886435ab77}</UniqueIdentifier>
+      <Extensions>ino</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,21 +26,30 @@
     <None Include="TEST_FIREBASEHelper.ino">
       <Filter>TEST</Filter>
     </None>
+    <None Include="TEST_BLYNKHelper.ino">
+      <Filter>TEST</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.Gitsy_simple.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EEPROMHelper.h">
+    <ClInclude Include="DebugGitsy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Declarations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EEPROMHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="FIREBASEHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DebugGitsy.h">
+    <ClInclude Include="BLYNKHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WIFIHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -48,6 +58,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FIREBASEHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BLYNKHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WIFIHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

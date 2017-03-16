@@ -13,10 +13,11 @@
 #define DEBUG Serial
 
 //#define TEST_EEPROM
-#define TEST_FIREBASE
+//#define TEST_FIREBASE
 //#define TEST_BLYNK
+#define TEST_WIFI_HELPER
 
-#if defined(TEST_EEPROM) || defined(TEST_FIREBASE) || defined(TEST_BLYNK)
+#if defined(TEST_EEPROM) || defined(TEST_FIREBASE) || defined(TEST_BLYNK) || defined(TEST_WIFI_HELPER)
 #undef RUN_MAIN
 #endif
 

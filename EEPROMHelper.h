@@ -11,7 +11,7 @@
 #include "DebugGitsy.h"
 #include <EEPROM.h>
 
-#ifdef DEBUG
+#if defined(DEBUG) && defined(TEST_EEPROM)
 #define DEBUG_EEPROM DEBUG
 #endif // DEBUG
 

@@ -12,7 +12,7 @@
 #include <ESP8266WiFi.h>
 #include <FirebaseArduino.h>
 
-#ifdef DEBUG
+#if defined(DEBUG) && defined(TEST_FIREBASE)
 #define DEBUG_FIREBASE DEBUG
 #endif // DEBUG
 
