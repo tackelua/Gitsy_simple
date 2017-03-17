@@ -35,6 +35,7 @@
 #define path_LastestFirmware "LastestFirmware"
 #define path_version "Version"
 #define path_url "URL"
+#define path_autoUpdate "Auto Update"
 
 
 class FIREBASEHelperClass
@@ -46,10 +47,10 @@ protected:
 	String path = "ClientDetails/" + (String)WiFi.macAddress();
 	bool lastCommand_failed(String at = "");
 	bool lastCommand_success(String at = "");
-public:
 	void init(String host = FIREBASE_HOST, String auth = FIREBASE_AUTH);
 
-	bool get_FirmwareInfo(String& version, String& url);
+public:
+	bool get_FirmwareInfo(String& version, String& url, bool& autoUpdate);
 
 	bool update_WifiInfo(String ssid, String password);
 	bool get_WifiInfo(String& ssid, String& password, bool& isUpToDate);

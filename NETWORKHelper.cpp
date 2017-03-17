@@ -114,14 +114,14 @@ bool NETWORKHelperClass::getVersion_fromGithub(String& version, String& url) {
 	return false;
 }
 
-bool NETWORKHelperClass::getVersion_fromFirebase(String& version, String& url) {
+bool NETWORKHelperClass::getVersion_fromFirebase(String& version, String& url, bool& autoUpdate) {
 #ifdef DEBUG_NETWORK
 	DEBUG_NETWORK.println("\r\ngetVersion_fromFirebase()");
 #endif // DEBUG_NETWORK
-	return FirebaseHelper.get_FirmwareInfo(version, url);
+	return FirebaseHelper.get_FirmwareInfo(version, url, autoUpdate);
 }
 
-bool NETWORKHelperClass::getFirmwareLastestVersion(String& version, String& url) {
+bool NETWORKHelperClass::getFirmwareLastestVersion(String& version, String& url, bool& autoUpdate) {
 	//only use Firebase to getVersion
 #ifdef DEBUG_NETWORK
 	DEBUG_NETWORK.println("\r\ngetFirmwareLastestVersion()");
@@ -133,15 +133,15 @@ bool NETWORKHelperClass::getFirmwareLastestVersion(String& version, String& url)
 	//else
 	//{
 	//fingerprint Valid limitted, dont use https
-		if (getVersion_fromFirebase(version, url)) {
-			if ((version.length() == 0) || (url.length() == 0)) {
-				return false;
-			}
-		}
-		else
-		{
+	if (getVersion_fromFirebase(version, url, autoUpdate)) {
+		if ((autoUpdate == false) && (version.length() == 0) || (url.length() == 0)) {
 			return false;
 		}
+	}
+	else
+	{
+		return false;
+	}
 	//}
 }
 
@@ -153,7 +153,7 @@ int NETWORKHelperClass::updateFirmware(String link, String newVersion)
 	DEBUG_NETWORK.flush();
 #endif // DEBUG_NETWORK
 
-	FirebaseHelper.log("Update " _version " to " + newVersion);
+	FirebaseHelper.log("Update '" _version "' to '" + newVersion + "'");
 	//EEPROMHelper.end();
 
 	//ESPhttpUpdate.rebootOnUpdate(true);
@@ -167,30 +167,30 @@ int NETWORKHelperClass::updateFirmware(String link, String newVersion)
 		result = ESPhttpUpdate.update(link);
 		delay(500);
 	}
-//	else if(link.indexOf("https") == 0)
-//	{
-//#ifdef DEBUG_NETWORK
-//		DEBUG_NETWORK.print("https update, server ");
-//#endif // DEBUG_NETWORK
-//		if (link.indexOf("github") > -1)
-//		{
-//#ifdef DEBUG_NETWORK
-//			DEBUG_NETWORK.println("Github");
-//			DEBUG_NETWORK.flush();
-//#endif // DEBUG_NETWORK
-//			result = ESPhttpUpdate.updateSpiffs(link, "", fingerprint_github);
-//			delay(500);
-//		}
-//		else
-//		{
-//#ifdef DEBUG_NETWORK
-//			DEBUG_NETWORK.println("Firebase");
-//			DEBUG_NETWORK.flush();
-//#endif // DEBUG_NETWORK
-//			result = ESPhttpUpdate.updateSpiffs(link, "", fingerprint_firebase);
-//			delay(500);
-//		}
-//	}
+	//	else if(link.indexOf("https") == 0)
+	//	{
+	//#ifdef DEBUG_NETWORK
+	//		DEBUG_NETWORK.print("https update, server ");
+	//#endif // DEBUG_NETWORK
+	//		if (link.indexOf("github") > -1)
+	//		{
+	//#ifdef DEBUG_NETWORK
+	//			DEBUG_NETWORK.println("Github");
+	//			DEBUG_NETWORK.flush();
+	//#endif // DEBUG_NETWORK
+	//			result = ESPhttpUpdate.updateSpiffs(link, "", fingerprint_github);
+	//			delay(500);
+	//		}
+	//		else
+	//		{
+	//#ifdef DEBUG_NETWORK
+	//			DEBUG_NETWORK.println("Firebase");
+	//			DEBUG_NETWORK.flush();
+	//#endif // DEBUG_NETWORK
+	//			result = ESPhttpUpdate.updateSpiffs(link, "", fingerprint_firebase);
+	//			delay(500);
+	//		}
+	//	}
 	switch (result)
 	{
 	case HTTP_UPDATE_FAILED:

@@ -42,6 +42,9 @@ bool FIREBASEHelperClass::lastCommand_success(String at) {
 }
 
 bool FIREBASEHelperClass::set_Info(String ssid, String password, String auth, String domain, uint16_t port) {
+
+	init();
+
 	DynamicJsonBuffer jsonBuffer;
 	JsonObject& jsonWifi = jsonBuffer.createObject();
 
@@ -72,6 +75,9 @@ bool FIREBASEHelperClass::set_Info(String ssid, String password, String auth, St
 	}
 }
 bool FIREBASEHelperClass::get_Info(String& ssid, String& password, String& auth, String& domain, uint16_t& port) {
+
+	init();
+
 #ifdef DEBUG_FIREBASE
 	DEBUG_FIREBASE.println("\r\nFirebaseHelper.get_Info()");
 #endif // DEBUG_FIREBASE
@@ -97,16 +103,19 @@ bool FIREBASEHelperClass::get_Info(String& ssid, String& password, String& auth,
 	}
 }
 
-bool FIREBASEHelperClass::get_FirmwareInfo(String& version, String& url) {
+bool FIREBASEHelperClass::get_FirmwareInfo(String& version, String& url, bool& autoUpdate) {
+	
+	init();
+
 #ifdef DEBUG_FIREBASE
 	DEBUG_FIREBASE.println("\r\nFirebaseHelper.get_FirmwareInfo()");
 #endif // DEBUG_FIREBASE
 
 	FirebaseObject ObjInfo = Firebase.get(path_LastestFirmware);
 	if (Firebase.success()) {
-
 		version = ObjInfo.getString(path_version);
 		url = ObjInfo.getString(path_url);
+		autoUpdate = ObjInfo.getBool(path_autoUpdate);
 #ifdef DEBUG_FIREBASE
 		DEBUG_FIREBASE.println("Success");
 		ObjInfo.getJsonVariant().prettyPrintTo(DEBUG_FIREBASE);
@@ -124,6 +133,9 @@ bool FIREBASEHelperClass::get_FirmwareInfo(String& version, String& url) {
 
 
 bool FIREBASEHelperClass::update_WifiInfo(String ssid, String password) {
+
+	init();
+
 #ifdef DEBUG_FIREBASE
 	DEBUG_FIREBASE.println("\r\nFirebaseHelper.update_WifiInfo()");
 #endif // DEBUG_FIREBASE
@@ -150,6 +162,9 @@ bool FIREBASEHelperClass::update_WifiInfo(String ssid, String password) {
 	}
 }
 bool FIREBASEHelperClass::get_WifiInfo(String& ssid, String& password, bool& isUpToDate) {
+
+	init();
+
 #ifdef DEBUG_FIREBASE
 	DEBUG_FIREBASE.println("\r\nFirebaseHelper.get_WifiInfo()");
 #endif // DEBUG_FIREBASE
@@ -174,6 +189,9 @@ bool FIREBASEHelperClass::get_WifiInfo(String& ssid, String& password, bool& isU
 }
 
 bool FIREBASEHelperClass::update_BlynkInfo(String auth, String domain, uint16_t port) {
+
+	init();
+
 #ifdef DEBUG_FIREBASE
 	DEBUG_FIREBASE.println("\r\nFirebaseHelper.update_BlynkInfo()");
 #endif // DEBUG_FIREBASE
@@ -205,6 +223,9 @@ bool FIREBASEHelperClass::update_BlynkInfo(String auth, String domain, uint16_t 
 	}
 }
 bool FIREBASEHelperClass::get_BlynkInfo(String& auth, String& domain, uint16_t& port, bool& isUpToDate) {
+
+	init();
+
 #ifdef DEBUG_FIREBASE
 	DEBUG_FIREBASE.println("\r\nFirebaseHelper.get_WifiInfo()");
 #endif // DEBUG_FIREBASE
@@ -230,6 +251,9 @@ bool FIREBASEHelperClass::get_BlynkInfo(String& auth, String& domain, uint16_t& 
 }
 
 bool FIREBASEHelperClass::log(String log) {
+
+	init();
+
 #ifdef DEBUG_FIREBASE
 	DEBUG_FIREBASE.println("\r\nFirebaseHelper.log()");
 #endif // DEBUG_FIREBASE
@@ -237,6 +261,9 @@ bool FIREBASEHelperClass::log(String log) {
 }
 
 bool FIREBASEHelperClass::remove() {
+
+	init();
+
 #ifdef DEBUG_FIREBASE
 	DEBUG_FIREBASE.println("\r\nFirebaseHelper.remove()");
 #endif // DEBUG_FIREBASE

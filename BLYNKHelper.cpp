@@ -3,7 +3,6 @@
 // 
 
 #include "BLYNKHelper.h"
-#include <BlynkSimpleEsp8266.h>
 
 void BLYNKHelperClass::init(String ssid, String password, String auth, String domain, uint16_t port)
 {

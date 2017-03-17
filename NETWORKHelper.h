@@ -21,13 +21,14 @@ class NETWORKHelperClass
 private:
 	String getVersion_handle(String raw_gitsyVersion);
 	String getURL_handle(String raw_gitsyVersion);
+
 protected:
-	
 	bool getVersion_fromGithub(String& version, String& url);
-	bool getVersion_fromFirebase(String& version, String& url);
+	bool getVersion_fromFirebase(String& version, String& url, bool& autoUpdate);
+
 public:
 	String request(String link, String thumbprint = fingerprint_github);
-	bool getFirmwareLastestVersion(String& version, String& url);
+	bool getFirmwareLastestVersion(String& version, String& url, bool& autoUpdate);
 	int updateFirmware(String link, String newVersion);
 
 };

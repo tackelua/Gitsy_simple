@@ -9,6 +9,7 @@
 	#include "WProgram.h"
 #endif
 #include "DebugGitsy.h"
+#include <BlynkSimpleEsp8266.h>
 #include <Blynk\BlynkConfig.h>
 
 #if defined(DEBUG) && defined(TEST_BLYNK)

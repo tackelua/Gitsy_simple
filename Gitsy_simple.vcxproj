@@ -79,6 +79,7 @@
     <ProjectCapability Include="VisualMicro" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BlynkGitsyFunctions.ino" />
     <None Include="Gitsy_simple.ino">
       <FileType>CppCode</FileType>
     </None>

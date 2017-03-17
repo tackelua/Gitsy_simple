@@ -13,6 +13,8 @@ void setup()
 	EEPROMHelper.init();
 
 	gitsyStart();
+	gitsyCheckUpdate();
+
 	check_FreeRAM("after setup()");
 }
 
