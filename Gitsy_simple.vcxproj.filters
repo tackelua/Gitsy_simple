@@ -32,6 +32,9 @@
     <None Include="TEST_WiFiHelper.ino">
       <Filter>TEST</Filter>
     </None>
+    <None Include="TEST_NETWORK.ino">
+      <Filter>TEST</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.Gitsy_simple.vsarduino.h">
@@ -55,6 +58,12 @@
     <ClInclude Include="WIFIHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NETWORKHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gitsyVersion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EEPROMHelper.cpp">
@@ -67,6 +76,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WIFIHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NETWORKHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,10 +1,10 @@
-#include <Blynk.h>
 #include "DebugGitsy.h"
 #include "Declarations.h"
 #include "EEPROMHelper.h"
 #include "FIREBASEHelper.h"
 #include "BLYNKHelper.h"
 #include "WIFIHelper.h"
+#include "NETWORKHelper.h"
 
 #ifdef RUN_MAIN
 
@@ -12,8 +12,21 @@ void setup()
 {
 	EEPROMHelper.init();
 
+	gitsyStart();
+	check_FreeRAM("after setup()");
+}
+
+void loop()
+{
+	BlynkHelper.run();
+}
+
+#endif // RUN_MAIN
+
+void gitsyStart() {
 #ifdef DEBUG
 	DEBUG.begin(74880);
+	DEBUG.println("Wait for connect...");
 #endif // DEBUG
 
 	if (WiFiHelper.begin())
@@ -24,13 +37,6 @@ void setup()
 		String _auth = InfoFromWiFiMangager.BLYNK_AUTH;
 		String _domain = InfoFromWiFiMangager.BLYNK_DOMAIN;
 		uint16_t _port = InfoFromWiFiMangager.BLYNK_PORT;
-#ifdef DEBUG
-		DEBUG.println(_ssid);
-		DEBUG.println(_password);
-		DEBUG.println(_auth);
-		DEBUG.println(_domain);
-		DEBUG.println(_port);
-#endif // DEBUG
 		EEPROMHelper.save_Info(_ssid, _password, _auth, _domain, _port);
 		BlynkHelper.begin(_auth, _domain, _port);
 	}
@@ -58,12 +64,4 @@ void setup()
 			goto BEGIN;
 		}
 	}
-	check_FreeRAM("after setup()");
 }
-
-void loop()
-{
-	BlynkHelper.run();
-}
-
-#endif // RUN_MAIN

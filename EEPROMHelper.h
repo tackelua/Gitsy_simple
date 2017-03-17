@@ -32,6 +32,7 @@ public:
 	void save_Info(String ssid, String password, String auth, String domain, uint16_t port);
 	bool get_Info(String& ssid, String& password, String& auth, String& domain, uint16_t& port);
 	
+	void end();
 	void eraser();
 };
 

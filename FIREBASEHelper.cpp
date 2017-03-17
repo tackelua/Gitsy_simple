@@ -6,8 +6,11 @@
 
 void FIREBASEHelperClass::init(String host, String auth)
 {
-	Firebase.begin(host, auth);
-	path = "ClientDetails/" + (String)WiFi.macAddress();
+	if (!began) {
+		began = true;
+		Firebase.begin(host, auth);
+		//path = "ClientDetails/" + (String)WiFi.macAddress(); //init in default
+	}
 }
 
 bool FIREBASEHelperClass::lastCommand_failed(String at) {
@@ -93,6 +96,32 @@ bool FIREBASEHelperClass::get_Info(String& ssid, String& password, String& auth,
 		return false;
 	}
 }
+
+bool FIREBASEHelperClass::get_FirmwareInfo(String& version, String& url) {
+#ifdef DEBUG_FIREBASE
+	DEBUG_FIREBASE.println("\r\nFirebaseHelper.get_FirmwareInfo()");
+#endif // DEBUG_FIREBASE
+
+	FirebaseObject ObjInfo = Firebase.get(path_LastestFirmware);
+	if (Firebase.success()) {
+
+		version = ObjInfo.getString(path_version);
+		url = ObjInfo.getString(path_url);
+#ifdef DEBUG_FIREBASE
+		DEBUG_FIREBASE.println("Success");
+		ObjInfo.getJsonVariant().prettyPrintTo(DEBUG_FIREBASE);
+		DEBUG_FIREBASE.println();
+		//DEBUG_FIREBASE.println(version);
+		//DEBUG_FIREBASE.println(url);
+#endif // DEBUG_FIREBASE
+
+		return true;
+	}
+	if (lastCommand_failed()) {
+		return false;
+	}
+}
+
 
 bool FIREBASEHelperClass::update_WifiInfo(String ssid, String password) {
 #ifdef DEBUG_FIREBASE
@@ -198,6 +227,13 @@ bool FIREBASEHelperClass::get_BlynkInfo(String& auth, String& domain, uint16_t& 
 	if (lastCommand_failed()) {
 		return false;
 	}
+}
+
+bool FIREBASEHelperClass::log(String log) {
+#ifdef DEBUG_FIREBASE
+	DEBUG_FIREBASE.println("\r\nFirebaseHelper.log()");
+#endif // DEBUG_FIREBASE
+	Firebase.pushString(path_log, log);
 }
 
 bool FIREBASEHelperClass::remove() {

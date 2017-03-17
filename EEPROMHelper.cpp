@@ -118,6 +118,9 @@ bool EEPROMHelperClass::get_Info(String& ssid, String& password, String& auth, S
 	else return false;
 }
 
+void EEPROMHelperClass::end() {
+	EEPROM.end();
+}
 void EEPROMHelperClass::eraser() {
 	for (int i = 0; i < EEPROM_SIZE; i++) {
 		EEPROM.write(i, 0);

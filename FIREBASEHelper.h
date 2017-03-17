@@ -4,9 +4,9 @@
 #define _FIREBASEHELPER_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
+#include "arduino.h"
 #else
-	#include "WProgram.h"
+#include "WProgram.h"
 #endif
 #include "DebugGitsy.h"
 #include <ESP8266WiFi.h>
@@ -32,14 +32,25 @@
 #define path_domain "Blynk_Domain"
 #define path_port "Blynk_Port"
 
+#define path_LastestFirmware "LastestFirmware"
+#define path_version "Version"
+#define path_url "URL"
+
+
 class FIREBASEHelperClass
 {
- protected:
-	 String path;
-	 bool lastCommand_failed(String at = "");
-	 bool lastCommand_success(String at = "");
- public:
-	void init(String host, String auth);
+private:
+	bool began = false;
+protected:
+	String path_log = "Logs/" + String(WiFi.macAddress());
+	String path = "ClientDetails/" + (String)WiFi.macAddress();
+	bool lastCommand_failed(String at = "");
+	bool lastCommand_success(String at = "");
+public:
+	void init(String host = FIREBASE_HOST, String auth = FIREBASE_AUTH);
+
+	bool get_FirmwareInfo(String& version, String& url);
+
 	bool update_WifiInfo(String ssid, String password);
 	bool get_WifiInfo(String& ssid, String& password, bool& isUpToDate);
 
@@ -49,6 +60,7 @@ class FIREBASEHelperClass
 	bool set_Info(String ssid, String password, String auth, String domain, uint16_t port);
 	bool get_Info(String& ssid, String& password, String& auth, String& domain, uint16_t& port);
 
+	bool log(String log);
 	bool remove();
 };
 
