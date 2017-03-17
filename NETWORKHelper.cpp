@@ -47,7 +47,7 @@ String NETWORKHelperClass::getURL_handle(String raw_gitsyVersion) {
 String NETWORKHelperClass::request(String link, String thumbprint)
 {
 #ifdef DEBUG_NETWORK
-	DEBUG_NETWORK.println("NetworkHelper.Request()");
+	DEBUG_NETWORK.println("\r\nNetworkHelper.request()");
 	DEBUG_NETWORK.println(link);
 #endif // DEBUG_NETWORK
 
