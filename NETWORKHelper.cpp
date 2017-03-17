@@ -158,11 +158,19 @@ int NETWORKHelperClass::updateFirmware(String link, String newVersion)
 	int result;
 	if (link.indexOf("http:") == 0)
 	{
+#ifdef DEBUG_NETWORK
+		DEBUG_NETWORK.println("http update");
+		DEBUG_NETWORK.flush();
+#endif // DEBUG_NETWORK
 		result = ESPhttpUpdate.update(link);
 		delay(1000);
 	}
 	else if(link.indexOf("https") == 0)
 	{
+#ifdef DEBUG_NETWORK
+		DEBUG_NETWORK.println("https update");
+		DEBUG_NETWORK.flush();
+#endif // DEBUG_NETWORK
 		result = ESPhttpUpdate.update(link, _version, fingerprint_firebase);
 		delay(1000);
 	}

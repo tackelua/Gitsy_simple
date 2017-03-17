@@ -5,6 +5,6 @@
 
 #define _version "test v0.1 20170317"
 static bool forceUpdate = false;
-//<url>http://gitsy.16mb.com/gitsy/firmwares/gitsy_simple.bin</url>
+//<url>http://gitsy.16mb.com/gitsy/firmwares/Gitsy_simple.bin</url>
 
 #endif

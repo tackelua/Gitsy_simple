@@ -14,7 +14,8 @@ void setup() {
 		Serial.println("Connected");
 	}
 	FirebaseHelper.init();
-	String version, url;
+	String version;
+	String url;
 	if (NetworkHelper.getFirmwareLastestVersion(version, url)) {
 		Serial.println("SUCCESS");
 		Serial.println(version);
@@ -25,7 +26,7 @@ void setup() {
 		Serial.println("FAILED");
 	}
 
-	if ((version != String(_version)) && (url.length() > 0)) {
+	if ((((String)_version).compareTo(version) == 0) && (url.length() > 0)) {
 		NetworkHelper.updateFirmware(url, version);
 	}
 	
