@@ -15,7 +15,11 @@ void setup()
 	gitsyStart();
 	gitsyCheckUpdate();
 
+#ifdef DEBUG
+	DEBUG.println("Time: " + String(millis()));
 	check_FreeRAM("after setup()");
+#endif // DEBUG
+
 }
 
 void loop()
@@ -28,6 +32,8 @@ void loop()
 void gitsyStart() {
 #ifdef DEBUG
 	DEBUG.begin(74880);
+	check_FreeRAM("start");
+	DEBUG.println(_version);
 	DEBUG.println("Wait for connect...");
 #endif // DEBUG
 

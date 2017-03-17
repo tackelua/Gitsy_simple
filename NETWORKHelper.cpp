@@ -97,7 +97,7 @@ String NETWORKHelperClass::request(String link, String thumbprint)
 
 bool NETWORKHelperClass::getVersion_fromGithub(String& version, String& url) {
 #ifdef DEBUG_NETWORK
-	DEBUG_NETWORK.println("\r\ngetVersion_fromGithub()");
+	DEBUG_NETWORK.println("\r\nNetworkHelper.getVersion_fromGithub()");
 #endif // DEBUG_NETWORK
 	String raw_gitsyVersion_h = request("https://raw.githubusercontent.com/tackelua/Gitsy_simple/master/gitsyVersion.h");
 	if (raw_gitsyVersion_h.length() > 0) {
@@ -116,7 +116,7 @@ bool NETWORKHelperClass::getVersion_fromGithub(String& version, String& url) {
 
 bool NETWORKHelperClass::getVersion_fromFirebase(String& version, String& url, bool& autoUpdate) {
 #ifdef DEBUG_NETWORK
-	DEBUG_NETWORK.println("\r\ngetVersion_fromFirebase()");
+	DEBUG_NETWORK.println("\r\nNetworkHelper.getVersion_fromFirebase()");
 #endif // DEBUG_NETWORK
 	return FirebaseHelper.get_FirmwareInfo(version, url, autoUpdate);
 }
@@ -124,7 +124,7 @@ bool NETWORKHelperClass::getVersion_fromFirebase(String& version, String& url, b
 bool NETWORKHelperClass::getFirmwareLastestVersion(String& version, String& url, bool& autoUpdate) {
 	//only use Firebase to getVersion
 #ifdef DEBUG_NETWORK
-	DEBUG_NETWORK.println("\r\ngetFirmwareLastestVersion()");
+	DEBUG_NETWORK.println("\r\nNetworkHelper.getFirmwareLastestVersion()");
 #endif // DEBUG_NETWORK
 	//if (getVersion_fromGithub(version, url))
 	//{
