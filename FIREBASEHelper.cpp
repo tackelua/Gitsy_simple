@@ -59,6 +59,7 @@ bool FIREBASEHelperClass::set_Info(String ssid, String password, String auth, St
 	jsonWifi[path_ssid] = ssid;
 	jsonWifi[path_password] = password;
 	jsonWifi[path_ip] = WiFi.localIP().toString();
+	jsonWifi[path_FirmwareVersion] = String(_version);
 
 #ifdef DEBUG_FIREBASE
 	DEBUG_FIREBASE.println("\r\nFirebaseHelper.set_Info()");
@@ -250,27 +251,27 @@ bool FIREBASEHelperClass::get_BlynkInfo(String& auth, String& domain, uint16_t& 
 	}
 }
 
-bool FIREBASEHelperClass::set_FVersion_IP() {
-
-	init();
-
-#ifdef DEBUG_FIREBASE
-	DEBUG_FIREBASE.println("\r\nFirebaseHelper.set_FVersion_IP()");
-#endif // DEBUG_FIREBASE
-	Firebase.setString(path_version, _version);
-	if (lastCommand_failed(path_version)) {
-		return false;
-	}
-	if (lastCommand_success(path_version)) {
-		Firebase.setString(path_ip, WiFi.localIP().toString());
-		if (lastCommand_failed(path_ip)) {
-			return false;
-		}
-		if (lastCommand_success(path_ip)) {
-			return true;
-		}
-	}
-}
+//bool FIREBASEHelperClass::set_FVersion_IP() {
+//
+//	init();
+//
+//#ifdef DEBUG_FIREBASE
+//	DEBUG_FIREBASE.println("\r\nFirebaseHelper.set_FVersion_IP()");
+//#endif // DEBUG_FIREBASE
+//	Firebase.setString(path_version, _version);
+//	if (lastCommand_failed(path_version)) {
+//		return false;
+//	}
+//	if (lastCommand_success(path_version)) {
+//		Firebase.setString(path_ip, WiFi.localIP().toString());
+//		if (lastCommand_failed(path_ip)) {
+//			return false;
+//		}
+//		if (lastCommand_success(path_ip)) {
+//			return true;
+//		}
+//	}
+//}
 
 bool FIREBASEHelperClass::log(String log) {
 

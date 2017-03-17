@@ -60,5 +60,4 @@ void gitsyCheckUpdate() {
 #endif // DEBUG
 	}
 
-	FirebaseHelper.set_FVersion_IP();
 }

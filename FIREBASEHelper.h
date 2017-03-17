@@ -22,6 +22,7 @@
 //Auth token secrets at link https://console.firebase.google.com/project/blynk-database/settings/serviceaccounts/databasesecrets
 
 #define path_isCreated "Firebase_isCreated"
+#define path_FirmwareVersion "Firmware_Version"
 
 #define path_isWifiUptodate "Wifi_isUpToDate"
 #define path_ssid "Wifi_SSID"
@@ -62,7 +63,7 @@ public:
 	bool set_Info(String ssid, String password, String auth, String domain, uint16_t port);
 	bool get_Info(String& ssid, String& password, String& auth, String& domain, uint16_t& port);
 
-	bool set_FVersion_IP();
+	//bool set_FVersion_IP();
 
 	bool log(String log);
 	bool remove();
