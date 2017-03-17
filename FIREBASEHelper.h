@@ -9,6 +9,7 @@
 #include "WProgram.h"
 #endif
 #include "DebugGitsy.h"
+#include "gitsyVersion.h"
 #include <ESP8266WiFi.h>
 #include <FirebaseArduino.h>
 
@@ -47,9 +48,9 @@ protected:
 	String path = "ClientDetails/" + (String)WiFi.macAddress();
 	bool lastCommand_failed(String at = "");
 	bool lastCommand_success(String at = "");
-	void init(String host = FIREBASE_HOST, String auth = FIREBASE_AUTH);
 
 public:
+	void init(String host = FIREBASE_HOST, String auth = FIREBASE_AUTH);
 	bool get_FirmwareInfo(String& version, String& url, bool& autoUpdate);
 
 	bool update_WifiInfo(String ssid, String password);
@@ -60,6 +61,8 @@ public:
 
 	bool set_Info(String ssid, String password, String auth, String domain, uint16_t port);
 	bool get_Info(String& ssid, String& password, String& auth, String& domain, uint16_t& port);
+
+	bool set_FVersion_IP();
 
 	bool log(String log);
 	bool remove();

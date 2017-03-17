@@ -59,4 +59,6 @@ void gitsyCheckUpdate() {
 		Serial.println("FAILED");
 #endif // DEBUG
 	}
+
+	FirebaseHelper.set_FVersion_IP();
 }

@@ -250,6 +250,28 @@ bool FIREBASEHelperClass::get_BlynkInfo(String& auth, String& domain, uint16_t& 
 	}
 }
 
+bool FIREBASEHelperClass::set_FVersion_IP() {
+
+	init();
+
+#ifdef DEBUG_FIREBASE
+	DEBUG_FIREBASE.println("\r\nFirebaseHelper.set_FVersion_IP()");
+#endif // DEBUG_FIREBASE
+	Firebase.setString(path_version, _version);
+	if (lastCommand_failed(path_version)) {
+		return false;
+	}
+	if (lastCommand_success(path_version)) {
+		Firebase.setString(path_ip, WiFi.localIP().toString());
+		if (lastCommand_failed(path_ip)) {
+			return false;
+		}
+		if (lastCommand_success(path_ip)) {
+			return true;
+		}
+	}
+}
+
 bool FIREBASEHelperClass::log(String log) {
 
 	init();
