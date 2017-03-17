@@ -122,15 +122,17 @@ bool NETWORKHelperClass::getVersion_fromFirebase(String& version, String& url) {
 }
 
 bool NETWORKHelperClass::getFirmwareLastestVersion(String& version, String& url) {
+	//only use Firebase to getVersion
 #ifdef DEBUG_NETWORK
 	DEBUG_NETWORK.println("\r\ngetFirmwareLastestVersion()");
 #endif // DEBUG_NETWORK
-	if (getVersion_fromGithub(version, url))
-	{
-		return true;
-	}
-	else
-	{
+	//if (getVersion_fromGithub(version, url))
+	//{
+	//	return true;
+	//}
+	//else
+	//{
+	//fingerprint Valid limitted, dont use https
 		if (getVersion_fromFirebase(version, url)) {
 			if ((version.length() == 0) || (url.length() == 0)) {
 				return false;
@@ -140,7 +142,7 @@ bool NETWORKHelperClass::getFirmwareLastestVersion(String& version, String& url)
 		{
 			return false;
 		}
-	}
+	//}
 }
 
 int NETWORKHelperClass::updateFirmware(String link, String newVersion)
@@ -163,17 +165,32 @@ int NETWORKHelperClass::updateFirmware(String link, String newVersion)
 		DEBUG_NETWORK.flush();
 #endif // DEBUG_NETWORK
 		result = ESPhttpUpdate.update(link);
-		delay(1000);
+		delay(500);
 	}
-	else if(link.indexOf("https") == 0)
-	{
-#ifdef DEBUG_NETWORK
-		DEBUG_NETWORK.println("https update");
-		DEBUG_NETWORK.flush();
-#endif // DEBUG_NETWORK
-		result = ESPhttpUpdate.update(link, _version, fingerprint_firebase);
-		delay(1000);
-	}
+//	else if(link.indexOf("https") == 0)
+//	{
+//#ifdef DEBUG_NETWORK
+//		DEBUG_NETWORK.print("https update, server ");
+//#endif // DEBUG_NETWORK
+//		if (link.indexOf("github") > -1)
+//		{
+//#ifdef DEBUG_NETWORK
+//			DEBUG_NETWORK.println("Github");
+//			DEBUG_NETWORK.flush();
+//#endif // DEBUG_NETWORK
+//			result = ESPhttpUpdate.updateSpiffs(link, "", fingerprint_github);
+//			delay(500);
+//		}
+//		else
+//		{
+//#ifdef DEBUG_NETWORK
+//			DEBUG_NETWORK.println("Firebase");
+//			DEBUG_NETWORK.flush();
+//#endif // DEBUG_NETWORK
+//			result = ESPhttpUpdate.updateSpiffs(link, "", fingerprint_firebase);
+//			delay(500);
+//		}
+//	}
 	switch (result)
 	{
 	case HTTP_UPDATE_FAILED:
@@ -199,7 +216,7 @@ int NETWORKHelperClass::updateFirmware(String link, String newVersion)
 	default:
 		break;
 	}
-
+	delay(500);
 	return result;
 }
 NETWORKHelperClass NetworkHelper;

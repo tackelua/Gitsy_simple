@@ -25,16 +25,26 @@ void setup() {
 	{
 		Serial.println("FAILED");
 	}
-
-	if ((((String)_version).compareTo(version) == 0) && (url.length() > 0)) {
+	if ((version.compareTo(_version) != 0) && (url.length() > 0)) {
 		NetworkHelper.updateFirmware(url, version);
 	}
-	
+
 	check_FreeRAM("end setup()");
 }
 
 void loop() {
-	;
+	if (Serial.available() > 0) {
+		String a = Serial.readString();
+		if (a.indexOf("restart") > -1) {
+			ESP.restart();
+			delay(1000);
+		}
+		else if (a.indexOf("reset") > -1)
+		{
+			ESP.reset();
+			delay(1000);
+		}
+	}
 }
 
 #endif // TEST_NETWORK
