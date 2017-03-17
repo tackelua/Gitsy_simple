@@ -22,4 +22,3 @@ void loop() {
 }
 
 #endif // TEST_BLYNK
-

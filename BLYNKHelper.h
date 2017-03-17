@@ -12,10 +12,9 @@
 #include <BlynkSimpleEsp8266.h>
 #include <Blynk\BlynkConfig.h>
 
-#if defined(DEBUG) && defined(TEST_BLYNK)
-#define DEBUG_BLYNK DEBUG
+#ifdef DEBUG_BLYNK
 #define BLYNK_PRINT DEBUG_BLYNK
-#endif // DEBUG
+#endif // DEBUG_BLYNK
 
 class BLYNKHelperClass
 {

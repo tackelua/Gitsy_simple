@@ -35,29 +35,3 @@ void loop() {
 }
 
 #endif // TEST_NETWORK
-
-void gitsyCheckUpdate() {
-	String version;
-	String url;
-	bool autoUpdate;
-	if (NetworkHelper.getFirmwareLastestVersion(version, url, autoUpdate)) {
-#ifdef DEBUG
-		DEBUG.println("SUCCESS");
-		DEBUG.println(version);
-		DEBUG.println(url);
-#endif // DEBUG
-		
-		if (autoUpdate) {
-			if ((version.compareTo(_version) != 0) && (url.length() > 0)) {
-				NetworkHelper.updateFirmware(url, version);
-			}
-		}
-	}
-	else
-	{
-#ifdef DEBUG
-		Serial.println("FAILED");
-#endif // DEBUG
-	}
-
-}

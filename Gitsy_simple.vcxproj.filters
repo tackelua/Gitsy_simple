@@ -35,7 +35,7 @@
     <None Include="TEST_NETWORK.ino">
       <Filter>TEST</Filter>
     </None>
-    <None Include="BlynkGitsyFunctions.ino" />
+    <None Include="BlynkGitsyFunctions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.Gitsy_simple.vsarduino.h">

@@ -1,4 +1,13 @@
+#ifndef _BLYNKGITSYFUNCTIONS_H
+#define _BLYNKGITSYFUNCTIONS_H
+
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "arduino.h"
+#else
+#include "WProgram.h"
+#endif
 #include <BlynkSimpleEsp8266.h>
+#include "DebugGitsy.h"
 #include "gitsyVersion.h"
 
 #define BLYNK_PIN_TERMINAL	V0
@@ -23,11 +32,51 @@
 
 WidgetTerminal terminal(BLYNK_PIN_TERMINAL);
 
+#pragma region FunctionsHelper
+int Button_to_Slider(int button) {
+	if ((button >= 0) && (button <= 8)) {
+		return (button + 10);
+	}
+	return -1;
+}
+int Slider_to_Button(int slider) {
+	if ((slider >= 10) && (slider <= 18)) {
+		return (slider - 10);
+	}
+	return -1;
+}
+void BlynkWrite_ButtonHelper(int button, int param_asInt) {
+	if ((param_asInt == 0) || (param_asInt = 1)) {
+		Blynk.virtualWrite(Button_to_Slider(button), param_asInt ? 1023 : 0);
+		//delay(10);
+		pinMode(button, OUTPUT);
+		digitalWrite(button, param_asInt);
+#ifdef DEBUG
+		DEBUG.print("BLYNK_PIN_BUTTON " + String(button) + " value: ");
+		DEBUG.println(param_asInt);
+#endif // DEBUG
+	}
+}
+void BlynkWrite_SliderHelper(int slider, int param_asInt) {
+	pinMode(slider, OUTPUT);
+	analogWrite(slider, param_asInt);
+	Blynk.virtualWrite(Slider_to_Button(slider), bool(param_asInt));
+#ifdef DEBUG
+	DEBUG.print("BLYNK_PIN_SLIDER " + String(slider) + "  value: ");
+	DEBUG.println(param_asInt);
+#endif // DEBUG
+}
+#pragma endregion
+
 BLYNK_WRITE(BLYNK_PIN_TERMINAL)
 {
 	// if you type "Marco" into Terminal Widget - it will respond: "Polo:"
 	if (String("/help") == param.asStr())
 	{
+#ifdef DEBUG_BLYNK
+		DEBUG_BLYNK.println("terminal>	/help");
+#endif // DEBUG_BLYNK
+
 		terminal.println(F("/rs\tRestart your device"));
 		terminal.println(F("/na\tUpdate new Blynk Auth Token"));
 		terminal.println(F("/sy\tSynchronous status"));
@@ -39,6 +88,9 @@ BLYNK_WRITE(BLYNK_PIN_TERMINAL)
 	}
 	else if (String("/rs") == param.asStr())
 	{
+#ifdef DEBUG_BLYNK
+		DEBUG_BLYNK.println("terminal>	/rs");
+#endif // DEBUG_BLYNK
 		terminal.println(F("Your device is being restarted...\r\n"));
 		terminal.flush();
 		delay(500);
@@ -47,6 +99,9 @@ BLYNK_WRITE(BLYNK_PIN_TERMINAL)
 	}
 	else if (String(param.asStr()).indexOf("/na") > -1)
 	{
+#ifdef DEBUG_BLYNK
+		DEBUG_BLYNK.println("terminal>	/na");
+#endif // DEBUG_BLYNK
 		String dataStr = param.asStr();
 		String Blynk_auth, Blynk_domain;
 		uint16_t Blynk_port;
@@ -98,6 +153,9 @@ BLYNK_WRITE(BLYNK_PIN_TERMINAL)
 	}
 	else if (String("/sy") == param.asStr())
 	{
+#ifdef DEBUG_BLYNK
+		DEBUG_BLYNK.println("terminal>	/sy");
+#endif // DEBUG_BLYNK
 		Blynk.virtualWrite(BLYNK_PIN_LABLE_IP, WiFi.localIP().toString());
 		Blynk.syncAll();
 		for (byte i = 0; i <= 4; i++) {
@@ -108,6 +166,9 @@ BLYNK_WRITE(BLYNK_PIN_TERMINAL)
 	}
 	else if (String("/uf") == param.asStr())
 	{
+#ifdef DEBUG_BLYNK
+		DEBUG_BLYNK.println("terminal>	/uf");
+#endif // DEBUG_BLYNK
 		String lf, url;
 		bool up;
 		NetworkHelper.getFirmwareLastestVersion(lf, url, up);
@@ -127,24 +188,39 @@ BLYNK_WRITE(BLYNK_PIN_TERMINAL)
 	}
 	else if (String("/fw") == param.asStr())
 	{
+#ifdef DEBUG_BLYNK
+		DEBUG_BLYNK.println("terminal>	/fw");
+#endif // DEBUG_BLYNK
 		terminal.println(_version);
 	}
 	else if (String("/lf") == param.asStr())
 	{
+#ifdef DEBUG_BLYNK
+		DEBUG_BLYNK.println("terminal>	/lf");
+#endif // DEBUG_BLYNK
 		String lf = Firebase.getString(F("LastestFirmware/Version"));
 		terminal.println(lf);
 	}
 	else if (String("/ip") == param.asStr())
 	{
+#ifdef DEBUG_BLYNK
+		DEBUG_BLYNK.println("terminal>	/ip");
+#endif // DEBUG_BLYNK
 		terminal.println(WiFi.localIP());
 		Blynk.virtualWrite(BLYNK_PIN_LABLE_IP, WiFi.localIP().toString());
 	}
 	else if (String("/cl") == param.asStr())
 	{
+#ifdef DEBUG_BLYNK
+		DEBUG_BLYNK.println("terminal>	/cl");
+#endif // DEBUG_BLYNK
 		terminal.println(F("\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"));
 	}
 	else if (String("/factoryreset") == param.asStr())
 	{
+#ifdef DEBUG_BLYNK
+		DEBUG_BLYNK.println("terminal>	/factoryreset");
+#endif // DEBUG_BLYNK
 		terminal.println("Eraser EEPROM");
 		EEPROMHelper.eraser();
 		EEPROMHelper.end();
@@ -244,38 +320,5 @@ BLYNK_WRITE(BLYNK_PIN_SLIDER8)
 {
 	BlynkWrite_SliderHelper(BLYNK_PIN_SLIDER8, param.asInt());
 }
-//==========================================================
 
-int Button_to_Slider(int button) {
-	if ((button >= 0) && (button <= 8)) {
-		return (button + 10);
-	}
-	return -1;
-}
-int Slider_to_Button(int slider) {
-	if ((slider >= 10) && (slider <= 18)) {
-		return (slider - 10);
-	}
-	return -1;
-}
-void BlynkWrite_ButtonHelper(int button, int param_asInt) {
-	if ((param_asInt == 0) || (param_asInt = 1)) {
-		Blynk.virtualWrite(Button_to_Slider(button), param_asInt ? 1023 : 0);
-		//delay(10);
-		pinMode(button, OUTPUT);
-		digitalWrite(button, param_asInt);
-#ifdef DEBUG
-		DEBUG.print("BLYNK_PIN_BUTTON " + String(button) + " value: ");
-		DEBUG.println(param_asInt);
-#endif // DEBUG
-	}
-}
-void BlynkWrite_SliderHelper(int slider, int param_asInt) {
-	pinMode(slider, OUTPUT);
-	analogWrite(slider, param_asInt);
-	Blynk.virtualWrite(Slider_to_Button(slider), bool(param_asInt));
-#ifdef DEBUG
-	DEBUG.print("BLYNK_PIN_SLIDER " + String(slider) + "  value: ");
-	DEBUG.println(param_asInt);
-#endif // DEBUG
-}
+#endif // !_BLYNKGITSYFUNCTIONS_H
