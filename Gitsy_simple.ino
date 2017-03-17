@@ -48,6 +48,7 @@ void gitsyStart() {
 		uint16_t _port = InfoFromWiFiMangager.BLYNK_PORT;
 		EEPROMHelper.save_Info(_ssid, _password, _auth, _domain, _port);
 		BlynkHelper.begin(_auth, _domain, _port);
+		FirebaseHelper.set_Info(_ssid, _password, _auth, _domain, _port);
 	}
 	else
 	{
@@ -56,15 +57,15 @@ void gitsyStart() {
 		DEBUG.println(WiFi.localIP());
 #endif // DEBUG
 		String _ssid;
-		String _pass;
+		String _password;
 		String _auth;
 		String _domain;
 		uint16_t _port;
-		if(EEPROMHelper.get_Info(_ssid, _pass, _auth, _domain, _port))
+		if(EEPROMHelper.get_Info(_ssid, _password, _auth, _domain, _port))
 		//if (EEPROMHelper.get_BlynkInfo(_auth, _domain, _port))
 		{
 			BlynkHelper.begin(_auth, _domain, _port);
-			FirebaseHelper.set_Info(_ssid, _pass, _auth, _domain, _port);
+			FirebaseHelper.set_Info(_ssid, _password, _auth, _domain, _port);
 		}
 		else
 		{

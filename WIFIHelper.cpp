@@ -75,6 +75,8 @@ void WIFIHelperClass::captiveWiFi()
 
 }
 
+//false: ket noi san sang
+//true: captiveWiFi
 bool WIFIHelperClass::begin() {
 	WiFi.setAutoConnect(true);
 	WiFi.setAutoReconnect(true);
