@@ -43,7 +43,9 @@ void BLYNKHelperClass::begin(String auth, String domain, uint16_t port) {
 		delay(1);
 	}
 #ifdef DEBUG_BLYNK
-	DEBUG_BLYNK.println();
+	if (Blynk.connected()) {
+		DEBUG_BLYNK.println("Success");
+	}
 #endif // DEBUG_BLYNK
 }
 bool BLYNKHelperClass::run() {

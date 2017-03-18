@@ -1,3 +1,4 @@
+#include <Blynk.h>
 #include "DebugGitsy.h"
 #include "Declarations.h"
 #include "EEPROMHelper.h"
@@ -12,7 +13,7 @@
 void setup()
 {
 	EEPROMHelper.init();
-
+	
 	gitsyStart();
 	gitsyCheckUpdate();
 
